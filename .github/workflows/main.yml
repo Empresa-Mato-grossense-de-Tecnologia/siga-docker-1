@@ -15,7 +15,7 @@ jobs:
         shell: bash
         run:  |
           sed -i '1d' README.md
-          sed -i "1 i\[![Abrir no Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/$repository/$branch)" README.md
+          sed -i "1 i\[![Abrir no Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/$repository/tree/$branch)" README.md
       - name: Commit and push changes
         run: |
           git config --global user.name "Siga-Docker"
