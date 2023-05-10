@@ -1,0 +1,26 @@
+name: GetNameBranch
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Extract branch name
+        shell: bash
+        run: |
+          echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
+          echo "repository=$(echo  ${GITHUB_REPOSITORY})" >> $GITHUB_ENV
+      - name: Remove first line README.md and Add with vars
+        shell: bash
+        run:  |
+          sed -i '1d' README.md
+          sed -i "1 i\[![Abrir no Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/$repository/$branch)" README.md
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "Siga-Docker"
+          git config --global user.email "githubActions@none"
+
+          git add -A
+          git commit -m "Adiciona GitPod URL"
+          git push
